@@ -24,7 +24,7 @@
   <a class="skip-link" href="#research">Skip to content</a>
 
   <!-- ===================== NAV ===================== -->
-  <header class="site-header">
+  <header class="site-header" id="site-header">
     <div class="container nav__inner">
       <a class="brand" href="#top" aria-label="Nilla Orina home">
         <span class="brand__glyph" aria-hidden="true">
@@ -38,31 +38,31 @@
         </span>
       </a>
 
-      <nav class="nav" aria-label="Primary">
+      <nav class="nav__panel" id="nav-panel" aria-label="Primary">
         <ul class="nav__links" id="nav-links">
           <li><a class="nav__link" href="#research">Research</a></li>
           <li><a class="nav__link" href="#projects">Work</a></li>
           <li><a class="nav__link" href="#photography">Photography</a></li>
           <li><a class="nav__link" href="#contact">Contact</a></li>
         </ul>
-        <button class="nav__toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links">
-          <span></span><span></span><span></span>
-        </button>
       </nav>
+
+      <button class="nav__toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">
+        <span></span><span></span><span></span>
+      </button>
     </div>
+
+    <div class="nav__backdrop" id="nav-backdrop" aria-hidden="true"></div>
   </header>
 
   <main>
     <!-- ===================== HERO ===================== -->
     <section class="hero" id="hero">
       <canvas class="hero__canvas" id="hero-field" aria-hidden="true"></canvas>
+      <div class="hero__spotlight" id="hero-spotlight" aria-hidden="true"></div>
       <div class="hero__veil" aria-hidden="true"></div>
 
       <div class="container hero__inner">
-        <p class="kicker reveal">
-          <span class="kicker__rule" aria-hidden="true"></span>
-          Computer Science <span class="x">×</span> Cognitive Science
-        </p>
         <h1 class="hero__name reveal">Nilla Orina</h1>
         <div class="hero__prose reveal">
           <p>
@@ -110,7 +110,7 @@
           </p>
         </header>
 
-        <article class="feature reveal">
+        <article class="feature reveal reveal--scale">
           <div class="feature__body">
             <p class="feature__eyebrow">Featured study</p>
             <h3 class="feature__title">
@@ -118,10 +118,12 @@
               Gender Systems
             </h3>
             <p class="feature__desc">
-              Learners acquired a miniature language with animacy-based
-              grammatical gender. <em>Semantic</em> and <em>distributional</em>
-              cues were set to conflict, and we measured which cue they
-              followed when generalizing to new nouns.
+              We taught participants a miniature language in which nouns fell
+              into two classes by animacy. During training, a noun's animate or
+              inanimate meaning pointed to one class while its co-occurrence
+              with class markers pointed to the other. Test trials then
+              introduced unseen nouns and recorded which class participants
+              assigned.
             </p>
             <ul class="meta-table">
               <li><span>Paradigm</span>Artificial language learning</li>
@@ -132,8 +134,9 @@
           <aside class="feature__visual related-work">
             <p class="related-work__label">Related work</p>
             <p class="related-work__intro">
-              The study extends artificial language work on how learners weigh
-              conflicting cues when noun classes are at stake.
+              Prior work on noun-class learning, animacy in miniature
+              languages, and grammar change under social pressure informed the
+              design.
             </p>
             <ul class="related-work__list">
               <li class="related-work__item">
@@ -320,6 +323,10 @@
     </figure>
     <button class="lb__nav lb__next" id="lb-next" aria-label="Next">&rsaquo;</button>
   </div>
+
+  <button type="button" class="back-to-top" id="back-to-top" aria-label="Back to top" tabindex="-1">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+  </button>
 
   <div class="grain" aria-hidden="true"></div>
   <script src="main.js"></script>

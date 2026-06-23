@@ -66,8 +66,8 @@
     function drawOne(b, t) {
       var flap = reduceMotion
         ? 0.72
-        : 0.58 + 0.42 * Math.sin(t * 0.0035 * b.flapSpeed + b.flapPhase);
-      var pitch = reduceMotion ? 0 : 0.07 * Math.sin(t * 0.00055 + b.pitchPhase);
+        : 0.62 + 0.38 * Math.sin(t * 0.0024 * b.flapSpeed + b.flapPhase);
+      var pitch = reduceMotion ? 0 : 0.05 * Math.sin(t * 0.00038 + b.pitchPhase);
       var angle = b.angle + pitch;
 
       ctx.save();
@@ -113,11 +113,11 @@
         item = {
           x: reduceMotion ? w * (0.55 + t * 0.35) : w * (0.5 + Math.random() * 0.48),
           y: reduceMotion ? h * (0.25 + (i % 3) * 0.22) : h * (0.12 + Math.random() * 0.76),
-          vx: reduceMotion ? 0 : (Math.random() - 0.5) * 0.1,
-          vy: reduceMotion ? 0 : (Math.random() - 0.5) * 0.07,
+          vx: reduceMotion ? 0 : (Math.random() - 0.5) * 0.06,
+          vy: reduceMotion ? 0 : (Math.random() - 0.5) * 0.045,
           angle: reduceMotion ? -0.3 + t * 0.5 : (Math.random() - 0.5) * 0.8,
           scale: 0.65 + Math.random() * 0.75,
-          alpha: 0.09 + Math.random() * 0.08,
+          alpha: 0.1 + Math.random() * 0.09,
           color: COLORS[i % COLORS.length],
           flapSpeed: 0.7 + Math.random() * 0.5,
           flapPhase: Math.random() * Math.PI * 2,
@@ -133,17 +133,17 @@
       if (!reduceMotion) {
         for (i = 0; i < butterflies.length; i++) {
           b = butterflies[i];
-          b.wander += (Math.random() - 0.5) * 0.006;
-          b.vx += Math.cos(b.wander) * 0.0018;
-          b.vy += Math.sin(b.wander) * 0.0018;
-          b.vx *= 0.997;
-          b.vy *= 0.997;
+          b.wander += (Math.random() - 0.5) * 0.0035;
+          b.vx += Math.cos(b.wander) * 0.0012;
+          b.vy += Math.sin(b.wander) * 0.0012;
+          b.vx *= 0.998;
+          b.vy *= 0.998;
           b.x += b.vx;
           b.y += b.vy;
           speed = Math.sqrt(b.vx * b.vx + b.vy * b.vy);
           if (speed > 0.015) {
             target = Math.atan2(b.vy, b.vx) + Math.PI / 2;
-            b.angle += (target - b.angle) * 0.012;
+            b.angle += (target - b.angle) * 0.008;
           }
           if (b.x < -90) b.x = w + 90;
           else if (b.x > w + 90) b.x = -90;
@@ -195,6 +195,111 @@
     });
   }
 
+  var heroSpotlightMQ = window.matchMedia(
+    "(hover: hover) and (pointer: fine) and (min-width: 881px)"
+  );
+
+  function initHeroSpotlight() {
+    var hero = document.getElementById("hero");
+    var spot = document.getElementById("hero-spotlight");
+    if (!hero || !spot || reduceMotion || !heroSpotlightMQ.matches) return;
+
+    var targetX = 72;
+    var targetY = 28;
+    var currentX = targetX;
+    var currentY = targetY;
+    var raf = null;
+    var running = false;
+    var inHero = true;
+
+    function apply() {
+      if (!running) return;
+      currentX += (targetX - currentX) * 0.045;
+      currentY += (targetY - currentY) * 0.045;
+      spot.style.setProperty("--spot-x", currentX + "%");
+      spot.style.setProperty("--spot-y", currentY + "%");
+      raf = requestAnimationFrame(apply);
+    }
+
+    function start() {
+      if (running || !inHero || document.hidden) return;
+      running = true;
+      spot.classList.remove("is-away");
+      raf = requestAnimationFrame(apply);
+    }
+
+    function stop() {
+      running = false;
+      if (raf) {
+        cancelAnimationFrame(raf);
+        raf = null;
+      }
+      spot.classList.add("is-away");
+    }
+
+    function move(e) {
+      if (!inHero) return;
+      var r = hero.getBoundingClientRect();
+      if (
+        e.clientX < r.left || e.clientX > r.right ||
+        e.clientY < r.top || e.clientY > r.bottom
+      ) return;
+      targetX = ((e.clientX - r.left) / r.width) * 100;
+      targetY = ((e.clientY - r.top) / r.height) * 100;
+    }
+
+    document.addEventListener("mousemove", move, { passive: true });
+    hero.addEventListener("mouseleave", function () {
+      targetX = 72;
+      targetY = 28;
+    });
+
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+          inHero = en.isIntersecting;
+          inHero ? start() : stop();
+        });
+      }, { threshold: 0 }).observe(hero);
+    } else {
+      start();
+    }
+
+    document.addEventListener("visibilitychange", function () {
+      document.hidden ? stop() : start();
+    });
+  }
+
+  function initBackToTop() {
+    var btn = document.getElementById("back-to-top");
+    if (!btn) return;
+
+    var showRatio = 0.65;
+    var hideNearTop = 120;
+
+    function onScroll() {
+      var scrollTop = window.scrollY;
+      var maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+      var ratio = maxScroll > 0 ? scrollTop / maxScroll : 0;
+      var show = scrollTop > hideNearTop && ratio >= showRatio;
+
+      btn.classList.toggle("is-visible", show);
+      btn.setAttribute("tabindex", show ? "0" : "-1");
+    }
+
+    btn.addEventListener("click", function () {
+      var top = document.getElementById("top");
+      if (top) {
+        top.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+      } else {
+        window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
+      }
+    });
+
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+  }
+
   /* ===========================================================
      2. STICKY HEADER + SCROLL REVEAL + ACTIVE NAV
      =========================================================== */
@@ -215,7 +320,7 @@
         entries.forEach(function (e) {
           if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
         });
-      }, { threshold: 0.12, rootMargin: "0px 0px -7% 0px" });
+      }, { threshold: 0.08, rootMargin: "0px 0px -5% 0px" });
       reveals.forEach(function (el) { io.observe(el); });
     }
 
@@ -244,18 +349,75 @@
      3. MOBILE MENU
      =========================================================== */
   function initMenu() {
-    var nav = document.querySelector(".nav");
+    var header = document.getElementById("site-header");
+    var panel = document.getElementById("nav-panel");
     var toggle = document.querySelector(".nav__toggle");
-    if (!nav || !toggle) return;
-    function close() { nav.classList.remove("open"); toggle.setAttribute("aria-expanded", "false"); }
-    toggle.addEventListener("click", function () {
-      var open = nav.classList.toggle("open");
+    var backdrop = document.getElementById("nav-backdrop");
+    if (!header || !toggle) return;
+
+    var scrollY = 0;
+
+    function isMobile() {
+      return window.matchMedia("(max-width: 880px)").matches;
+    }
+
+    function setOpen(open) {
+      if (open && !isMobile()) return;
+
+      header.classList.toggle("menu-open", open);
       toggle.setAttribute("aria-expanded", open ? "true" : "false");
+      toggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+
+      if (panel) panel.setAttribute("aria-hidden", open ? "false" : "true");
+      if (backdrop) backdrop.setAttribute("aria-hidden", open ? "false" : "true");
+
+      if (open) {
+        scrollY = window.scrollY;
+        document.body.style.position = "fixed";
+        document.body.style.top = "-" + scrollY + "px";
+        document.body.style.left = "0";
+        document.body.style.right = "0";
+        document.body.style.overflow = "hidden";
+      } else {
+        document.body.style.position = "";
+        document.body.style.top = "";
+        document.body.style.left = "";
+        document.body.style.right = "";
+        document.body.style.overflow = "";
+        if (scrollY) window.scrollTo(0, scrollY);
+      }
+    }
+
+    function close() { setOpen(false); }
+
+    toggle.addEventListener("click", function () {
+      setOpen(!header.classList.contains("menu-open"));
     });
-    nav.querySelectorAll(".nav__link").forEach(function (l) {
+
+    if (backdrop) {
+      backdrop.addEventListener("click", close);
+    }
+
+    header.querySelectorAll(".nav__link").forEach(function (l) {
       l.addEventListener("click", close);
     });
-    document.addEventListener("keydown", function (e) { if (e.key === "Escape") close(); });
+
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") close();
+    });
+
+    window.addEventListener("resize", function () {
+      if (!isMobile()) {
+        close();
+        if (panel) panel.removeAttribute("aria-hidden");
+      } else if (!header.classList.contains("menu-open") && panel) {
+        panel.setAttribute("aria-hidden", "true");
+      }
+    });
+
+    if (isMobile() && panel) {
+      panel.setAttribute("aria-hidden", "true");
+    }
   }
 
   /* ===========================================================
@@ -354,6 +516,8 @@
      =========================================================== */
   function init() {
     initButterflies();
+    initHeroSpotlight();
+    initBackToTop();
     initScroll();
     initMenu();
     initGallery();
