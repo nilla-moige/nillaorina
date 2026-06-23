@@ -1,7 +1,4 @@
-/* ============================================================
-   Nilla Orina — vibrant dark
-   Zinc dark base, saturated violet + cyan accents.
-   ============================================================ */
+
 
 :root {
   --bg:     #0c0c0f;
@@ -774,6 +771,10 @@ b, strong { font-weight: 500; }
 .lb__nav { width: 46px; height: 46px; font-size: 1.6rem; line-height: 1; background: none; color: #f8f3f6; border: 1px solid rgba(255, 240, 248, 0.2); border-radius: 50%; cursor: pointer; transition: border-color 0.25s var(--ease); }
 .lb__nav:hover { border-color: var(--cool); }
 
+
+.section{
+  padding-top: 1.2rem;
+}
 /* ============================================================
    REVEAL
    ============================================================ */
