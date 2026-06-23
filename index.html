@@ -6,7 +6,7 @@
   <title>Nilla Orina · Computer Science &amp; Cognitive Science</title>
   <meta name="description" content="Nilla Orina is a computer scientist and cognitive scientist. Penn B.A. 2026, magna cum laude. Research, projects, and photography on how meaning emerges between people and machines." />
   <meta name="author" content="Nilla Orina" />
-  <meta name="theme-color" content="#111113" />
+  <meta name="theme-color" content="#0c0c0f" />
 
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Nilla Orina · Computer Science &amp; Cognitive Science" />
@@ -21,7 +21,7 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body id="top">
-  <a class="skip-link" href="#about">Skip to content</a>
+  <a class="skip-link" href="#research">Skip to content</a>
 
   <!-- ===================== NAV ===================== -->
   <header class="site-header">
@@ -36,12 +36,10 @@
             <circle class="g-dim" cx="24" cy="20" r="1.9" />
           </svg>
         </span>
-        <span class="brand__name">Nilla&nbsp;Orina</span>
       </a>
 
       <nav class="nav" aria-label="Primary">
         <ul class="nav__links" id="nav-links">
-          <li><a class="nav__link" href="#about">About</a></li>
           <li><a class="nav__link" href="#research">Research</a></li>
           <li><a class="nav__link" href="#projects">Work</a></li>
           <li><a class="nav__link" href="#photography">Photography</a></li>
@@ -66,10 +64,18 @@
           Computer Science <span class="x">×</span> Cognitive Science
         </p>
         <h1 class="hero__name reveal">Nilla Orina</h1>
-        <p class="hero__lead reveal">
-          I study how meaning <em>emerges</em> between people, and between
-          people and machines.
-        </p>
+        <div class="hero__prose reveal">
+          <p>
+            I studied computer science and cognitive science at Penn and
+            graduated magna cum laude in 2026. In the
+            <a href="https://www.ling.upenn.edu/resources/labs/cultural-evolution-language-laboratory" target="_blank" rel="noopener">Cultural Evolution of Language Lab</a>
+            I designed artificial language learning experiments and analyzed
+            behavioral data in Python and R. For two years I tutored
+            undergraduates in calculus and biology. I also built software on
+            my own and did marketing and communications work for Penn
+            Business Services.
+          </p>
+        </div>
         <div class="hero__actions reveal">
           <a class="btn btn--primary" href="#research">
             Explore research
@@ -86,37 +92,14 @@
         </p>
       </div>
 
-      <a class="scroll-cue" href="#about" aria-label="Scroll to about"><span></span></a>
-    </section>
-
-    <!-- ===================== ABOUT ===================== -->
-    <section class="section" id="about">
-      <div class="container">
-        <header class="head reveal">
-          <p class="kicker"><span class="kicker__num">01</span> About</p>
-        </header>
-
-        <div class="about reveal">
-          <div class="prose">
-            <p>
-              I studied computer science and cognitive science at Penn and
-              graduated magna cum laude in 2026. In the
-              <a href="https://www.ling.upenn.edu/resources/labs/cultural-evolution-language-laboratory" target="_blank" rel="noopener">Cultural Evolution of Language Lab</a>
-              I designed artificial language learning experiments and analyzed
-              behavioral data in Python and R. I also built software on my own
-              and did marketing and communications work for Penn Business
-              Services.
-            </p>
-          </div>
-        </div>
-      </div>
+      <a class="scroll-cue" href="#research" aria-label="Scroll to research"><span></span></a>
     </section>
 
     <!-- ===================== RESEARCH ===================== -->
     <section class="section" id="research">
       <div class="container">
         <header class="head reveal">
-          <p class="kicker"><span class="kicker__num">02</span> Research</p>
+          <p class="kicker"><span class="kicker__num">01</span> Research</p>
           <p class="intro">
             I did my undergraduate research with
             <a href="https://www.ling.upenn.edu/people/gareth-roberts" target="_blank" rel="noopener">Dr. Gareth Roberts</a>
@@ -146,9 +129,55 @@
               <li><span>Stack</span>Python · R · PCIbex · Empirica</li>
             </ul>
           </div>
-          <div class="feature__visual" aria-hidden="true">
-            <div class="lattice"></div>
-          </div>
+          <aside class="feature__visual related-work">
+            <p class="related-work__label">Related work</p>
+            <p class="related-work__intro">
+              The study extends artificial language work on how learners weigh
+              conflicting cues when noun classes are at stake.
+            </p>
+            <ul class="related-work__list">
+              <li class="related-work__item">
+                <a class="related-work__link" href="https://doi.org/10.1016/j.jml.2016.08.001" target="_blank" rel="noopener">
+                  <span class="related-work__cite">Culbertson, Gagliardi &amp; Smith (2017)</span>
+                  <span class="related-work__title">Competition between phonological and semantic cues in noun class learning</span>
+                </a>
+                <p class="related-work__note">
+                  Semantic and formal cues can conflict during training; learners
+                  favor whichever cue they encountered first.
+                </p>
+              </li>
+              <li class="related-work__item">
+                <a class="related-work__link" href="https://doi.org/10.1515/opli-2018-0027" target="_blank" rel="noopener">
+                  <span class="related-work__cite">Vihman, Nelson &amp; Kirby (2018)</span>
+                  <span class="related-work__title">Animacy distinctions arise from iterated learning</span>
+                </a>
+                <p class="related-work__note">
+                  Animacy-based noun classes can spread because they make a
+                  miniature language easier to transmit.
+                </p>
+              </li>
+              <li class="related-work__item">
+                <a class="related-work__link" href="https://doi.org/10.1080/10489223.2022.2057229" target="_blank" rel="noopener">
+                  <span class="related-work__cite">Fedzechkina, Hall Hartley &amp; Roberts (2022)</span>
+                  <span class="related-work__title">Social biases can lead to less communicatively efficient languages</span>
+                </a>
+                <p class="related-work__note">
+                  From the Cultural Evolution of Language Lab. Learners reshape
+                  grammar under competing social and communicative pressures.
+                </p>
+              </li>
+              <li class="related-work__item">
+                <a class="related-work__link" href="https://doi.org/10.1353/lan.2018.0060" target="_blank" rel="noopener">
+                  <span class="related-work__cite">Culbertson, Gagliardi &amp; Smith (2018)</span>
+                  <span class="related-work__title">Children's sensitivity to phonological and semantic cues during noun class learning</span>
+                </a>
+                <p class="related-work__note">
+                  The same cue-competition logic shows up in child learners, not
+                  just adults.
+                </p>
+              </li>
+            </ul>
+          </aside>
         </article>
 
         <div class="methods reveal">
@@ -180,12 +209,26 @@
     <section class="section" id="projects">
       <div class="container">
         <header class="head reveal">
-          <p class="kicker"><span class="kicker__num">03</span> Work</p>
+          <p class="kicker"><span class="kicker__num">02</span> Work</p>
         </header>
 
         <ol class="entries">
           <li class="entry reveal">
             <span class="entry__num">01</span>
+            <div class="entry__body">
+              <h3 class="entry__title">STEM Tutor · Calculus &amp; Biology</h3>
+              <p class="entry__desc">
+                Part-time tutor for Penn undergraduates, Sep 2023 to Sep 2025.
+                I taught Calculus I/II and introductory biology with an emphasis
+                on concepts and problem-solving, not memorization. I built
+                personalized study guides, ran review sessions, and worked with
+                academic advisors and peer tutors to catch recurring gaps early.
+              </p>
+            </div>
+            <span class="entry__tag">Teaching · STEM</span>
+          </li>
+          <li class="entry reveal">
+            <span class="entry__num">02</span>
             <div class="entry__body">
               <h3 class="entry__title">Daily Pennsylvanian Scraper</h3>
               <p class="entry__desc">
@@ -197,7 +240,7 @@
             <span class="entry__tag">Python · NLP</span>
           </li>
           <li class="entry reveal">
-            <span class="entry__num">02</span>
+            <span class="entry__num">03</span>
             <div class="entry__body">
               <h3 class="entry__title">PCOSphere</h3>
               <p class="entry__desc">
@@ -208,7 +251,7 @@
             <span class="entry__tag">Product · Data</span>
           </li>
           <li class="entry reveal">
-            <span class="entry__num">03</span>
+            <span class="entry__num">04</span>
             <div class="entry__body">
               <h3 class="entry__title">Penn Transit Product Strategy</h3>
               <p class="entry__desc">
@@ -227,7 +270,7 @@
     <section class="section" id="photography">
       <div class="container">
         <header class="head reveal">
-          <p class="kicker"><span class="kicker__num">04</span> Photography</p>
+          <p class="kicker"><span class="kicker__num">03</span> Photography</p>
           <p class="intro">
             I shot for Penn Business Services, including the Bookstore, Ice
             Rink, Transit, and Children's Center, and on my own around campus.
@@ -242,7 +285,7 @@
     <section class="section" id="contact">
       <div class="container">
         <header class="head reveal">
-          <p class="kicker"><span class="kicker__num">05</span> Contact</p>
+          <p class="kicker"><span class="kicker__num">04</span> Contact</p>
           <p class="head__thread">
             Open to roles in research, product, and human-centered technology.
           </p>

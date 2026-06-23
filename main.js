@@ -18,14 +18,14 @@
      size: "" | "tall" | "wide"  (controls grid span)
      ----------------------------------------------------------- */
   var PHOTOS = [
-    { src: "", caption: "Light & shadow",   grad: "linear-gradient(145deg,#2a2540,#111113 60%,#1e1a30)", size: "tall" },
-    { src: "", caption: "Portrait",         grad: "linear-gradient(145deg,#252035,#111113 65%,#1a1830)", size: "" },
-    { src: "", caption: "City, after rain", grad: "linear-gradient(145deg,#1e2038,#111113 60%,#252040)", size: "wide" },
-    { src: "", caption: "Texture study",    grad: "linear-gradient(145deg,#282438,#111113 60%,#201c32)", size: "" },
-    { src: "", caption: "Golden hour",      grad: "linear-gradient(145deg,#302a38,#111113 55%,#282030)", size: "" },
-    { src: "", caption: "Long exposure",    grad: "linear-gradient(145deg,#1a2035,#111113 60%,#222038)", size: "tall" },
-    { src: "", caption: "Street",           grad: "linear-gradient(145deg,#242038,#111113 65%,#1c1a30)", size: "" },
-    { src: "", caption: "Quiet geometry",   grad: "linear-gradient(145deg,#202538,#111113 60%,#282240)", size: "wide" }
+    { src: "", caption: "Light & shadow",   grad: "linear-gradient(145deg,#4c1d95,#0c0c0f 55%,#1e3a5f)", size: "tall" },
+    { src: "", caption: "Portrait",         grad: "linear-gradient(145deg,#6b21a8,#0c0c0f 60%,#312e81)", size: "" },
+    { src: "", caption: "City, after rain", grad: "linear-gradient(145deg,#3730a3,#0c0c0f 55%,#0e7490)", size: "wide" },
+    { src: "", caption: "Texture study",    grad: "linear-gradient(145deg,#581c87,#0c0c0f 60%,#1e1b4b)", size: "" },
+    { src: "", caption: "Golden hour",      grad: "linear-gradient(145deg,#7c3aed,#0c0c0f 50%,#a855f7)", size: "" },
+    { src: "", caption: "Long exposure",    grad: "linear-gradient(145deg,#1d4ed8,#0c0c0f 55%,#6d28d9)", size: "tall" },
+    { src: "", caption: "Street",           grad: "linear-gradient(145deg,#5b21b6,#0c0c0f 60%,#164e63)", size: "" },
+    { src: "", caption: "Quiet geometry",   grad: "linear-gradient(145deg,#4338ca,#0c0c0f 55%,#7e22ce)", size: "wide" }
   ];
 
   /* ===========================================================
@@ -41,10 +41,10 @@
     var raf = null, running = false;
 
     var COLORS = [
-      "220,210,255",
-      "200,180,255",
-      "180,160,250",
-      "230,225,255"
+      "192,132,252",
+      "168,85,247",
+      "56,189,248",
+      "233,213,255"
     ];
 
     function wing(ctx, side, flap, alpha, rgb) {
@@ -117,7 +117,7 @@
           vy: reduceMotion ? 0 : (Math.random() - 0.5) * 0.07,
           angle: reduceMotion ? -0.3 + t * 0.5 : (Math.random() - 0.5) * 0.8,
           scale: 0.65 + Math.random() * 0.75,
-          alpha: 0.06 + Math.random() * 0.07,
+          alpha: 0.09 + Math.random() * 0.08,
           color: COLORS[i % COLORS.length],
           flapSpeed: 0.7 + Math.random() * 0.5,
           flapPhase: Math.random() * Math.PI * 2,
