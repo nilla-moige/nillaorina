@@ -4,15 +4,15 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Nilla Orina · Computer Science &amp; Cognitive Science</title>
-  <meta name="description" content="Nilla Orina is a computer scientist and cognitive scientist at the University of Pennsylvania studying how meaning emerges between people and machines. Research, projects, experience, and photography." />
+  <meta name="description" content="Nilla Orina is a computer scientist and cognitive scientist. Penn B.A. 2026, magna cum laude. Research, projects, and photography on how meaning emerges between people and machines." />
   <meta name="author" content="Nilla Orina" />
-  <meta name="theme-color" content="#0a0d14" />
+  <meta name="theme-color" content="#111113" />
 
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Nilla Orina · Computer Science &amp; Cognitive Science" />
   <meta property="og:description" content="Computer scientist and cognitive scientist. Research, projects, and photography." />
 
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230a0d14'/%3E%3Cline x1='10' y1='22' x2='22' y2='10' stroke='%23ffffff' stroke-opacity='.3' stroke-width='1.4'/%3E%3Ccircle cx='10' cy='22' r='3.4' fill='%23f4b860'/%3E%3Ccircle cx='22' cy='10' r='3.4' fill='%235ad1e3'/%3E%3C/svg%3E" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23111113'/%3E%3Cline x1='10' y1='22' x2='22' y2='10' stroke='%23ffffff' stroke-opacity='.2' stroke-width='1.4'/%3E%3Ccircle cx='10' cy='22' r='3.4' fill='%238b5cf6'/%3E%3Ccircle cx='22' cy='10' r='3.4' fill='%236366f1'/%3E%3C/svg%3E" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -43,8 +43,7 @@
         <ul class="nav__links" id="nav-links">
           <li><a class="nav__link" href="#about">About</a></li>
           <li><a class="nav__link" href="#research">Research</a></li>
-          <li><a class="nav__link" href="#projects">Projects</a></li>
-          <li><a class="nav__link" href="#experience">Experience</a></li>
+          <li><a class="nav__link" href="#projects">Work</a></li>
           <li><a class="nav__link" href="#photography">Photography</a></li>
           <li><a class="nav__link" href="#contact">Contact</a></li>
         </ul>
@@ -58,7 +57,7 @@
   <main>
     <!-- ===================== HERO ===================== -->
     <section class="hero" id="hero">
-      <canvas class="hero__canvas" id="network" aria-hidden="true"></canvas>
+      <canvas class="hero__canvas" id="hero-field" aria-hidden="true"></canvas>
       <div class="hero__veil" aria-hidden="true"></div>
 
       <div class="container hero__inner">
@@ -81,7 +80,7 @@
         <p class="hero__meta reveal">
           <span>University of Pennsylvania</span>
           <span class="dot" aria-hidden="true"></span>
-          <span>Class of 2026</span>
+          <span>B.A. 2026, magna cum laude</span>
           <span class="dot" aria-hidden="true"></span>
           <span>Philadelphia, PA</span>
         </p>
@@ -95,20 +94,18 @@
       <div class="container">
         <header class="head reveal">
           <p class="kicker"><span class="kicker__num">01</span> About</p>
-          <h2 class="title">Computer science and cognitive science</h2>
         </header>
 
         <div class="about reveal">
           <div class="prose">
             <p>
-              At Penn I write NLP scrapers and data pipelines, design
-              artificial-language-learning experiments in the Cultural Evolution
-              of Language Lab, and present research to large audiences. My work
-              centers on communication: how people make meaning, and what
-              happens when one side is a machine.
-            </p>
-            <p>
-              Outside the lab, I'm usually behind a camera.
+              I studied computer science and cognitive science at Penn and
+              graduated magna cum laude in 2026. In the
+              <a href="https://www.ling.upenn.edu/resources/labs/cultural-evolution-language-laboratory" target="_blank" rel="noopener">Cultural Evolution of Language Lab</a>
+              I designed artificial language learning experiments and analyzed
+              behavioral data in Python and R. I also built software on my own
+              and did marketing and communications work for Penn Business
+              Services.
             </p>
           </div>
         </div>
@@ -120,12 +117,13 @@
       <div class="container">
         <header class="head reveal">
           <p class="kicker"><span class="kicker__num">02</span> Research</p>
-          <h2 class="title">How languages evolve</h2>
           <p class="intro">
-            In the <strong>Cultural Evolution of Language Lab</strong>, directed
-            by Dr. Gareth Roberts, I study how language structure emerges from
-            interaction. We teach people artificial languages from scratch and
-            watch grammar take shape in real time.
+            I did my undergraduate research with
+            <a href="https://www.ling.upenn.edu/people/gareth-roberts" target="_blank" rel="noopener">Dr. Gareth Roberts</a>
+            in the
+            <a href="https://www.ling.upenn.edu/resources/labs/cultural-evolution-language-laboratory" target="_blank" rel="noopener"><strong>Cultural Evolution of Language Lab</strong></a>.
+            The group studies how languages evolve through social learning,
+            often in miniature languages built for controlled experiments.
           </p>
         </header>
 
@@ -137,10 +135,10 @@
               Gender Systems
             </h3>
             <p class="feature__desc">
-              An artificial-language-learning study of how learners acquire and
-              generalize gender systems organized around animacy. It tests what
-              happens when <em>semantic</em> and <em>distributional</em> cues
-              point in different directions, and which one wins.
+              Learners acquired a miniature language with animacy-based
+              grammatical gender. <em>Semantic</em> and <em>distributional</em>
+              cues were set to conflict, and we measured which cue they
+              followed when generalizing to new nouns.
             </p>
             <ul class="meta-table">
               <li><span>Paradigm</span>Artificial language learning</li>
@@ -165,6 +163,16 @@
             <li class="chip">High-variance behavioral data</li>
           </ul>
         </div>
+
+        <div class="toolkit toolkit--inline reveal">
+          <p class="skillset__label">Tools behind the work</p>
+          <ul class="chips chips--mono">
+            <li class="chip">Python</li><li class="chip">R</li>
+            <li class="chip">PCIbex</li><li class="chip">Empirica</li>
+            <li class="chip">JavaScript</li><li class="chip">SQL</li>
+            <li class="chip">Git</li><li class="chip">Figma</li>
+          </ul>
+        </div>
       </div>
     </section>
 
@@ -172,8 +180,7 @@
     <section class="section" id="projects">
       <div class="container">
         <header class="head reveal">
-          <p class="kicker"><span class="kicker__num">03</span> Selected projects</p>
-          <h2 class="title">Things I've built</h2>
+          <p class="kicker"><span class="kicker__num">03</span> Work</p>
         </header>
 
         <ol class="entries">
@@ -182,9 +189,9 @@
             <div class="entry__body">
               <h3 class="entry__title">Daily Pennsylvanian Scraper</h3>
               <p class="entry__desc">
-                An automated pipeline that extracts and cleans articles from
-                noisy, semi-structured pages, producing consistent input for
-                NLP analysis.
+                A Python pipeline that scrapes the Daily Pennsylvanian from
+                messy, semi-structured HTML and pre-processes the text for NLP
+                work.
               </p>
             </div>
             <span class="entry__tag">Python · NLP</span>
@@ -194,9 +201,8 @@
             <div class="entry__body">
               <h3 class="entry__title">PCOSphere</h3>
               <p class="entry__desc">
-                A symptom-tracking tool that turns daily behavioral inputs into
-                personalized lifestyle insights, with data models tuned for
-                consistency.
+                Tracks PCOS symptoms and daily behavioral inputs, then surfaces
+                lifestyle patterns through structured data models.
               </p>
             </div>
             <span class="entry__tag">Product · Data</span>
@@ -206,9 +212,9 @@
             <div class="entry__body">
               <h3 class="entry__title">Penn Transit Product Strategy</h3>
               <p class="entry__desc">
-                Stakeholder interviews and user research turned into a
-                prioritized roadmap to reduce onboarding friction for a transit
-                app serving 10,000+ riders.
+                Stakeholder interviews and user research for Penn Business
+                Services informed a product roadmap aimed at onboarding
+                friction for 10,000+ riders.
               </p>
             </div>
             <span class="entry__tag">UX Research</span>
@@ -217,129 +223,14 @@
       </div>
     </section>
 
-    <!-- ===================== EXPERIENCE ===================== -->
-    <section class="section" id="experience">
-      <div class="container">
-        <header class="head reveal">
-          <p class="kicker"><span class="kicker__num">04</span> Experience</p>
-          <h2 class="title">Where I've worked</h2>
-        </header>
-
-        <ol class="timeline">
-          <li class="timeline__item reveal">
-            <p class="tl__date">Jun 2025 to Present</p>
-            <div class="tl__body">
-              <h3 class="tl__role">Marketing &amp; Communications Intern</h3>
-              <p class="tl__org">Penn Business Services, University of Pennsylvania</p>
-              <p class="tl__desc">
-                Lead content, photography, and analytics across Penn's business
-                units, including the Bookstore, Transit, and Ice Rink. Turned
-                engagement data into campaigns that lifted social metrics by
-                about 40%.
-              </p>
-            </div>
-          </li>
-          <li class="timeline__item reveal">
-            <p class="tl__date">May 2024 to Present</p>
-            <div class="tl__body">
-              <h3 class="tl__role">Student Researcher</h3>
-              <p class="tl__org">Cultural Evolution of Language Lab, University of Pennsylvania</p>
-              <p class="tl__desc">
-                Design and run language-learning experiments studying how people
-                adapt under ambiguity, and build and analyze high-variance
-                behavioral data in Python and R.
-              </p>
-            </div>
-          </li>
-          <li class="timeline__item reveal">
-            <p class="tl__date">Aug 2022 to May 2026</p>
-            <div class="tl__body">
-              <h3 class="tl__role">Lead Admissions Assistant</h3>
-              <p class="tl__org">Penn Admissions, University of Pennsylvania</p>
-              <p class="tl__desc">
-                Promoted to lead a visitor center serving up to 300 prospective
-                students weekly, coordinating a 12-person student team and
-                presenting Penn to thousands of families each year.
-              </p>
-            </div>
-          </li>
-          <li class="timeline__item reveal">
-            <p class="tl__date">Jul 2022 to Nov 2022</p>
-            <div class="tl__body">
-              <h3 class="tl__role">Research &amp; Business Analyst Extern</h3>
-              <p class="tl__org">PwC, Remote</p>
-              <p class="tl__desc">
-                Built market-analysis and expansion frameworks for nonprofit
-                clients, turning research into executive-level recommendations.
-              </p>
-            </div>
-          </li>
-        </ol>
-
-        <div class="also reveal">
-          <p class="also__label">Leadership &amp; service</p>
-          <ul class="also__list">
-            <li><b>Vice President</b><span>Society of African Internationals at Penn</span></li>
-            <li><b>Marketing Lead</b><span>Penn African Students Association</span></li>
-            <li><b>Calculus &amp; Biology Tutor</b><span>University of Pennsylvania</span></li>
-            <li><b>Lead Mentor</b><span>EducationUSA, Nairobi</span></li>
-            <li><b>Equity Leadership Program</b><span>Equity Group Foundation</span></li>
-            <li><b>Member</b><span>NSBE &amp; Society of Women Engineers</span></li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===================== SKILLS ===================== -->
-    <section class="section" id="skills">
-      <div class="container">
-        <header class="head reveal">
-          <p class="kicker"><span class="kicker__num">05</span> Toolkit</p>
-          <h2 class="title">What I work with</h2>
-        </header>
-
-        <div class="toolkit reveal">
-          <div class="skillset">
-            <p class="skillset__label">Languages</p>
-            <ul class="chips chips--mono">
-              <li class="chip">Python</li><li class="chip">Java</li>
-              <li class="chip">C</li><li class="chip">Rust</li>
-              <li class="chip">OCaml</li><li class="chip">SQL</li>
-              <li class="chip">JavaScript</li><li class="chip">React</li>
-              <li class="chip">HTML/CSS</li><li class="chip">R</li>
-            </ul>
-          </div>
-          <div class="skillset">
-            <p class="skillset__label">Tools &amp; platforms</p>
-            <ul class="chips chips--mono">
-              <li class="chip">Figma</li><li class="chip">Git</li>
-              <li class="chip">Notion</li><li class="chip">PCIbex</li>
-              <li class="chip">Empirica</li><li class="chip">Excel</li>
-              <li class="chip">Access</li>
-            </ul>
-          </div>
-          <div class="skillset">
-            <p class="skillset__label">Methods &amp; domains</p>
-            <ul class="chips chips--mono">
-              <li class="chip">NLP</li><li class="chip">Agent-based modeling</li>
-              <li class="chip">Cognitive modeling</li><li class="chip">Data pipelines</li>
-              <li class="chip">AI/ML fundamentals</li><li class="chip">Experimental design</li>
-              <li class="chip">Behavioral analysis</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <!-- ===================== PHOTOGRAPHY ===================== -->
     <section class="section" id="photography">
       <div class="container">
         <header class="head reveal">
-          <p class="kicker"><span class="kicker__num">06</span> Photography</p>
-          <h2 class="title">Behind the camera</h2>
+          <p class="kicker"><span class="kicker__num">04</span> Photography</p>
           <p class="intro">
-            I photograph when I'm not in the lab. I look for the moment a
-            scene comes together.
+            I shot for Penn Business Services, including the Bookstore, Ice
+            Rink, Transit, and Children's Center, and on my own around campus.
           </p>
         </header>
 
@@ -352,12 +243,9 @@
     <section class="section" id="contact">
       <div class="container">
         <header class="head reveal">
-          <p class="kicker"><span class="kicker__num">07</span> Contact</p>
-          <h2 class="title">Let's work together.</h2>
-          <p class="intro">
-            I'm looking for roles in research, product, and human-centered
-            technology, and I'm always happy to talk about language, cognition,
-            or photography.
+          <p class="kicker"><span class="kicker__num">05</span> Contact</p>
+          <p class="head__thread">
+            Open to roles in research, product, and human-centered technology.
           </p>
         </header>
         <p class="contact__lines reveal">
@@ -375,7 +263,7 @@
   <footer class="site-footer">
     <div class="container foot__inner">
       <span class="foot__name">Nilla Orina</span>
-      <span class="foot__meta">Computer Science &amp; Cognitive Science · Philadelphia</span>
+      <span class="foot__meta">Meaning from interaction · Philadelphia</span>
       <a class="foot__top" href="#top">Back to top &uarr;</a>
     </div>
   </footer>

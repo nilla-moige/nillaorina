@@ -1,15 +1,15 @@
 # Nilla Orina — personal site
 
-A single-page portfolio for Nilla Orina (Computer Science × Cognitive Science, University of Pennsylvania) with a research focus and a photography gallery.
+A single-page portfolio for Nilla Orina (Computer Science × Cognitive Science, Penn B.A. 2026, magna cum laude) with a research focus and a photography gallery.
 
-**Theme — "Emergence."** A living node-and-edge network (neurons / a language network / a constellation) animates behind the hero and threads through the site. The palette runs from a warm amber to a cool cyan — the "signal" gradient — a nod to her research on how meaning is negotiated between people and machines.
+**Theme — "Emergence."** A familiar dark UI with vivid violet accents — the kind of palette people expect from modern portfolio and product sites.
 
 No build step, no dependencies. It's plain HTML, CSS, and JavaScript.
 
 ```
 index.html    structure & copy
 styles.css    all styling + the theme
-main.js       network animation, scroll reveals, gallery + lightbox
+main.js       butterfly animation, scroll reveals, gallery + lightbox
 images/       drop your photographs here
 ```
 
@@ -51,8 +51,9 @@ All copy lives directly in `index.html` — find the section (`<!-- ABOUT -->`, 
 Open `styles.css` — everything theme-related is in the `:root` block at the top:
 
 ```css
---warm: #f4b860;   /* human / synapse */
---cool: #5ad1e3;   /* machine / signal */
+--warm: #e8a4be;   /* dusty rose — primary accent */
+--cool: #c992b0;   /* mauve */
+--cool-2: #f0c8dc; /* soft blush */
 ```
 
 ## Privacy note
@@ -71,4 +72,4 @@ A custom domain (e.g. `nillaorina.com`) can be pointed at any of the above.
 
 ## Accessibility
 
-Honors `prefers-reduced-motion` (the network renders a single still frame and reveals turn off), keyboard-navigable lightbox (←/→/Esc), semantic landmarks, and a skip link.
+Honors `prefers-reduced-motion` (butterflies render as a static still frame and reveals turn off), keyboard-navigable lightbox (←/→/Esc), semantic landmarks, and a skip link.

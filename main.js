@@ -1,6 +1,6 @@
 /* ============================================================
    Nilla Orina — site interactions
-   1. Emergent node/edge network (hero canvas)
+   1. Butterfly field (hero canvas — soft emergent silhouettes)
    2. Scroll reveal + active nav + sticky header
    3. Mobile menu
    4. Photography gallery + lightbox
@@ -18,31 +18,81 @@
      size: "" | "tall" | "wide"  (controls grid span)
      ----------------------------------------------------------- */
   var PHOTOS = [
-    { src: "", caption: "Light & shadow",   grad: "linear-gradient(145deg,#1d2b4d,#0c1426 60%,#36223f)", size: "tall" },
-    { src: "", caption: "Portrait",         grad: "linear-gradient(145deg,#3a2330,#160f1f 65%,#0f1b2e)", size: "" },
-    { src: "", caption: "City, after rain", grad: "linear-gradient(145deg,#13314a,#0a141f 60%,#1c2c3a)", size: "wide" },
-    { src: "", caption: "Texture study",    grad: "linear-gradient(145deg,#2e2740,#10131f 60%,#243a44)", size: "" },
-    { src: "", caption: "Golden hour",      grad: "linear-gradient(145deg,#4a3420,#1a1410 55%,#2a2438)", size: "" },
-    { src: "", caption: "Long exposure",    grad: "linear-gradient(145deg,#102a3a,#0a1018 60%,#202a45)", size: "tall" },
-    { src: "", caption: "Street",           grad: "linear-gradient(145deg,#2a3450,#0d1320 65%,#3a2a34)", size: "" },
-    { src: "", caption: "Quiet geometry",   grad: "linear-gradient(145deg,#1a3340,#0b121d 60%,#312842)", size: "wide" }
+    { src: "", caption: "Light & shadow",   grad: "linear-gradient(145deg,#2a2540,#111113 60%,#1e1a30)", size: "tall" },
+    { src: "", caption: "Portrait",         grad: "linear-gradient(145deg,#252035,#111113 65%,#1a1830)", size: "" },
+    { src: "", caption: "City, after rain", grad: "linear-gradient(145deg,#1e2038,#111113 60%,#252040)", size: "wide" },
+    { src: "", caption: "Texture study",    grad: "linear-gradient(145deg,#282438,#111113 60%,#201c32)", size: "" },
+    { src: "", caption: "Golden hour",      grad: "linear-gradient(145deg,#302a38,#111113 55%,#282030)", size: "" },
+    { src: "", caption: "Long exposure",    grad: "linear-gradient(145deg,#1a2035,#111113 60%,#222038)", size: "tall" },
+    { src: "", caption: "Street",           grad: "linear-gradient(145deg,#242038,#111113 65%,#1c1a30)", size: "" },
+    { src: "", caption: "Quiet geometry",   grad: "linear-gradient(145deg,#202538,#111113 60%,#282240)", size: "wide" }
   ];
 
   /* ===========================================================
-     1. NETWORK CANVAS
+     1. BUTTERFLIES — abstract silhouettes drifting behind the
+        hero veil; slow flutter and pitch, low opacity.
      =========================================================== */
-  function initNetwork() {
-    var canvas = document.getElementById("network");
+  function initButterflies() {
+    var canvas = document.getElementById("hero-field");
     if (!canvas) return;
     var ctx = canvas.getContext("2d");
     var w = 0, h = 0, dpr = 1;
-    var nodes = [];
+    var butterflies = [];
     var raf = null, running = false;
-    var pointer = { x: 0, y: 0, active: false };
 
-    var WARM = "244,184,96";
-    var COOL = "90,209,227";
-    var MIX  = "150,170,220";
+    var COLORS = [
+      "220,210,255",
+      "200,180,255",
+      "180,160,250",
+      "230,225,255"
+    ];
+
+    function wing(ctx, side, flap, alpha, rgb) {
+      var s = side;
+      var f = flap;
+      ctx.fillStyle = "rgba(" + rgb + "," + alpha + ")";
+      ctx.beginPath();
+      ctx.moveTo(0, -1);
+      ctx.bezierCurveTo(s * 14 * f, -12 * f, s * 24 * f, -6 * f, s * 18 * f, 4);
+      ctx.bezierCurveTo(s * 12 * f, 10, s * 4, 5, 0, -1);
+      ctx.fill();
+      ctx.beginPath();
+      ctx.moveTo(0, 2);
+      ctx.bezierCurveTo(s * 10 * f, 4, s * 16 * f, 14, s * 10 * f, 16);
+      ctx.bezierCurveTo(s * 5, 14, s * 2, 8, 0, 2);
+      ctx.fill();
+    }
+
+    function drawOne(b, t) {
+      var flap = reduceMotion
+        ? 0.72
+        : 0.58 + 0.42 * Math.sin(t * 0.0035 * b.flapSpeed + b.flapPhase);
+      var pitch = reduceMotion ? 0 : 0.07 * Math.sin(t * 0.00055 + b.pitchPhase);
+      var angle = b.angle + pitch;
+
+      ctx.save();
+      ctx.translate(b.x, b.y);
+      ctx.rotate(angle);
+      ctx.scale(b.scale, b.scale);
+
+      ctx.strokeStyle = "rgba(" + b.color + "," + (b.alpha * 0.85) + ")";
+      ctx.lineWidth = 0.55;
+      ctx.beginPath();
+      ctx.moveTo(0, -9);
+      ctx.lineTo(0, 9);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(0, -9);
+      ctx.quadraticCurveTo(-1.2, -12, -2.2, -13);
+      ctx.moveTo(0, -9);
+      ctx.quadraticCurveTo(1.2, -12, 2.2, -13);
+      ctx.stroke();
+
+      wing(ctx, -1, flap, b.alpha * 0.8, b.color);
+      wing(ctx, 1, flap, b.alpha * 0.8, b.color);
+
+      ctx.restore();
+    }
 
     function size() {
       dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -55,84 +105,61 @@
     }
 
     function build() {
-      var target = Math.round((w * h) / 15500);
-      var count = Math.max(26, Math.min(86, target));
-      nodes = [];
-      for (var i = 0; i < count; i++) {
-        nodes.push({
-          x: Math.random() * w,
-          y: Math.random() * h,
-          vx: (Math.random() - 0.5) * 0.22,
-          vy: (Math.random() - 0.5) * 0.22,
-          r: Math.random() * 1.5 + 0.6,
-          warm: Math.random() < 0.42,
-          tw: Math.random() * Math.PI * 2
-        });
+      var count = reduceMotion ? 3 : Math.max(4, Math.min(6, Math.round(w / 220)));
+      butterflies = [];
+      var i, t, item;
+      for (i = 0; i < count; i++) {
+        t = reduceMotion ? i / Math.max(count - 1, 1) : Math.random();
+        item = {
+          x: reduceMotion ? w * (0.55 + t * 0.35) : w * (0.5 + Math.random() * 0.48),
+          y: reduceMotion ? h * (0.25 + (i % 3) * 0.22) : h * (0.12 + Math.random() * 0.76),
+          vx: reduceMotion ? 0 : (Math.random() - 0.5) * 0.1,
+          vy: reduceMotion ? 0 : (Math.random() - 0.5) * 0.07,
+          angle: reduceMotion ? -0.3 + t * 0.5 : (Math.random() - 0.5) * 0.8,
+          scale: 0.65 + Math.random() * 0.75,
+          alpha: 0.06 + Math.random() * 0.07,
+          color: COLORS[i % COLORS.length],
+          flapSpeed: 0.7 + Math.random() * 0.5,
+          flapPhase: Math.random() * Math.PI * 2,
+          pitchPhase: Math.random() * Math.PI * 2,
+          wander: Math.random() * Math.PI * 2
+        };
+        butterflies.push(item);
       }
     }
 
-    function draw(t) {
-      ctx.clearRect(0, 0, w, h);
-      var maxD = Math.min(185, Math.max(125, w * 0.12));
-      var maxD2 = maxD * maxD;
-      var i, j, a, b;
-
-      // edges
-      for (i = 0; i < nodes.length; i++) {
-        a = nodes[i];
-        a.x += a.vx; a.y += a.vy;
-        if (a.x < -20) a.x = w + 20; else if (a.x > w + 20) a.x = -20;
-        if (a.y < -20) a.y = h + 20; else if (a.y > h + 20) a.y = -20;
-
-        for (j = i + 1; j < nodes.length; j++) {
-          b = nodes[j];
-          var dx = a.x - b.x, dy = a.y - b.y;
-          var d2 = dx * dx + dy * dy;
-          if (d2 < maxD2) {
-            var d = Math.sqrt(d2);
-            var alpha = (1 - d / maxD) * 0.45;
-            var col = a.warm === b.warm ? (a.warm ? WARM : COOL) : MIX;
-            ctx.strokeStyle = "rgba(" + col + "," + alpha + ")";
-            ctx.lineWidth = 0.7;
-            ctx.beginPath();
-            ctx.moveTo(a.x, a.y);
-            ctx.lineTo(b.x, b.y);
-            ctx.stroke();
+    function tick(t) {
+      var i, b, speed, target;
+      if (!reduceMotion) {
+        for (i = 0; i < butterflies.length; i++) {
+          b = butterflies[i];
+          b.wander += (Math.random() - 0.5) * 0.006;
+          b.vx += Math.cos(b.wander) * 0.0018;
+          b.vy += Math.sin(b.wander) * 0.0018;
+          b.vx *= 0.997;
+          b.vy *= 0.997;
+          b.x += b.vx;
+          b.y += b.vy;
+          speed = Math.sqrt(b.vx * b.vx + b.vy * b.vy);
+          if (speed > 0.015) {
+            target = Math.atan2(b.vy, b.vx) + Math.PI / 2;
+            b.angle += (target - b.angle) * 0.012;
           }
-        }
-
-        // pointer links — meaning forming around the cursor
-        if (pointer.active) {
-          var px = a.x - pointer.x, py = a.y - pointer.y;
-          var pd2 = px * px + py * py;
-          var pr = 210;
-          if (pd2 < pr * pr) {
-            var pd = Math.sqrt(pd2);
-            var pa = (1 - pd / pr) * 0.55;
-            ctx.strokeStyle = "rgba(" + (a.warm ? WARM : COOL) + "," + pa + ")";
-            ctx.lineWidth = 0.8;
-            ctx.beginPath();
-            ctx.moveTo(a.x, a.y);
-            ctx.lineTo(pointer.x, pointer.y);
-            ctx.stroke();
-          }
+          if (b.x < -90) b.x = w + 90;
+          else if (b.x > w + 90) b.x = -90;
+          if (b.y < -70) b.y = h + 70;
+          else if (b.y > h + 70) b.y = -70;
         }
       }
-
-      // nodes
-      for (i = 0; i < nodes.length; i++) {
-        a = nodes[i];
-        var tw = 0.6 + 0.4 * Math.sin(t * 0.001 + a.tw);
-        ctx.fillStyle = "rgba(" + (a.warm ? WARM : COOL) + "," + (0.45 * tw + 0.2) + ")";
-        ctx.beginPath();
-        ctx.arc(a.x, a.y, a.r, 0, Math.PI * 2);
-        ctx.fill();
+      ctx.clearRect(0, 0, w, h);
+      for (i = 0; i < butterflies.length; i++) {
+        drawOne(butterflies[i], t);
       }
     }
 
     function frame(t) {
       if (!running) return;
-      draw(t);
+      tick(t);
       raf = requestAnimationFrame(frame);
     }
     function start() {
@@ -147,21 +174,13 @@
     }
 
     size();
-    if (reduceMotion) { draw(0); }
+    tick(0);
 
     var rt;
     window.addEventListener("resize", function () {
       clearTimeout(rt);
-      rt = setTimeout(function () { size(); if (reduceMotion) draw(0); }, 180);
+      rt = setTimeout(function () { size(); tick(0); }, 180);
     });
-
-    canvas.addEventListener("pointermove", function (e) {
-      var r = canvas.getBoundingClientRect();
-      pointer.x = e.clientX - r.left;
-      pointer.y = e.clientY - r.top;
-      pointer.active = true;
-    });
-    canvas.addEventListener("pointerleave", function () { pointer.active = false; });
 
     var hero = document.getElementById("hero");
     if ("IntersectionObserver" in window && hero) {
@@ -334,7 +353,7 @@
      INIT
      =========================================================== */
   function init() {
-    initNetwork();
+    initButterflies();
     initScroll();
     initMenu();
     initGallery();
