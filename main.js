@@ -3,30 +3,11 @@
    1. Butterfly field (hero canvas — soft emergent silhouettes)
    2. Scroll reveal + active nav + sticky header
    3. Mobile menu
-   4. Photography gallery + lightbox
    ============================================================ */
 (function () {
   "use strict";
 
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-  /* -----------------------------------------------------------
-     PHOTOGRAPHY — single source of truth.
-     To use real photos: set `src` to a file in /images, e.g.
-       { src: "images/golden-hour.jpg", caption: "Golden hour", size: "tall" }
-     With no `src`, an on-theme gradient placeholder is drawn.
-     size: "" | "tall" | "wide"  (controls grid span)
-     ----------------------------------------------------------- */
-  var PHOTOS = [
-    { src: "", caption: "Light & shadow",   grad: "linear-gradient(145deg,#4c1d95,#0c0c0f 55%,#1e3a5f)", size: "tall" },
-    { src: "", caption: "Portrait",         grad: "linear-gradient(145deg,#6b21a8,#0c0c0f 60%,#312e81)", size: "" },
-    { src: "", caption: "City, after rain", grad: "linear-gradient(145deg,#3730a3,#0c0c0f 55%,#0e7490)", size: "wide" },
-    { src: "", caption: "Texture study",    grad: "linear-gradient(145deg,#581c87,#0c0c0f 60%,#1e1b4b)", size: "" },
-    { src: "", caption: "Golden hour",      grad: "linear-gradient(145deg,#7c3aed,#0c0c0f 50%,#a855f7)", size: "" },
-    { src: "", caption: "Long exposure",    grad: "linear-gradient(145deg,#1d4ed8,#0c0c0f 55%,#6d28d9)", size: "tall" },
-    { src: "", caption: "Street",           grad: "linear-gradient(145deg,#5b21b6,#0c0c0f 60%,#164e63)", size: "" },
-    { src: "", caption: "Quiet geometry",   grad: "linear-gradient(145deg,#4338ca,#0c0c0f 55%,#7e22ce)", size: "wide" }
-  ];
 
   /* ===========================================================
      1. BUTTERFLIES — spawn off-screen, glide across hero, recycle
@@ -737,97 +718,6 @@
     if (isMobile() && panel) {
       panel.setAttribute("aria-hidden", "true");
     }
-  }
-
-  /* ===========================================================
-     4. GALLERY + LIGHTBOX
-     =========================================================== */
-  function initGallery() {
-    var grid = document.getElementById("gallery");
-    if (!grid) return;
-
-    PHOTOS.forEach(function (p, idx) {
-      var btn = document.createElement("button");
-      btn.className = "shot" + (p.size === "wide" ? " shot--wide" : "");
-      btn.setAttribute("aria-label", "View photograph: " + p.caption);
-      btn.dataset.index = idx;
-
-      var imgWrap = document.createElement("span");
-      imgWrap.className = "shot__img";
-      if (p.src) {
-        var img = document.createElement("img");
-        img.src = p.src;
-        img.alt = p.caption;
-        img.loading = "lazy";
-        imgWrap.appendChild(img);
-      } else {
-        var ph = document.createElement("span");
-        ph.style.background = p.grad;
-        imgWrap.appendChild(ph);
-      }
-      btn.appendChild(imgWrap);
-
-      var cap = document.createElement("span");
-      cap.className = "shot__cap";
-      cap.textContent = p.caption;
-      btn.appendChild(cap);
-
-      btn.addEventListener("click", function () { openLightbox(idx); });
-      grid.appendChild(btn);
-    });
-
-    var lb = document.getElementById("lightbox");
-    var frame = document.getElementById("lb-frame");
-    var capEl = document.getElementById("lb-cap");
-    var countEl = document.getElementById("lb-count");
-    var current = 0;
-    var lastFocus = null;
-
-    function render() {
-      var p = PHOTOS[current];
-      frame.innerHTML = "";
-      if (p.src) {
-        var img = document.createElement("img");
-        img.src = p.src; img.alt = p.caption;
-        frame.appendChild(img);
-      } else {
-        var span = document.createElement("span");
-        span.style.background = p.grad;
-        frame.appendChild(span);
-      }
-      capEl.textContent = p.caption;
-      countEl.textContent = (current + 1) + " / " + PHOTOS.length;
-    }
-    function openLightbox(i) {
-      current = i;
-      lastFocus = document.activeElement;
-      render();
-      lb.hidden = false;
-      requestAnimationFrame(function () { lb.classList.add("open"); });
-      document.body.style.overflow = "hidden";
-      document.getElementById("lb-close").focus();
-    }
-    function close() {
-      lb.classList.remove("open");
-      document.body.style.overflow = "";
-      setTimeout(function () { lb.hidden = true; }, 350);
-      if (lastFocus) lastFocus.focus();
-    }
-    function step(dir) {
-      current = (current + dir + PHOTOS.length) % PHOTOS.length;
-      render();
-    }
-
-    document.getElementById("lb-close").addEventListener("click", close);
-    document.getElementById("lb-prev").addEventListener("click", function () { step(-1); });
-    document.getElementById("lb-next").addEventListener("click", function () { step(1); });
-    lb.addEventListener("click", function (e) { if (e.target === lb) close(); });
-    document.addEventListener("keydown", function (e) {
-      if (lb.hidden) return;
-      if (e.key === "Escape") close();
-      else if (e.key === "ArrowLeft") step(-1);
-      else if (e.key === "ArrowRight") step(1);
-    });
   }
 
   /* ===========================================================
