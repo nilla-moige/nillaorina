@@ -31,4 +31,3 @@ Open `styles.css` — everything theme-related is in the `:root` block at the to
 --cool: #c992b0;   /* mauve */
 --cool-2: #f0c8dc; /* soft blush */
 ```
-
